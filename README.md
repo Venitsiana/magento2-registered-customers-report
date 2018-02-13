@@ -1,0 +1,1 @@
+# magento2-registered-customers-report
