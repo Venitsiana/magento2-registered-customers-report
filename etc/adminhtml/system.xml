@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+
+    <system>
+
+        <section id="veni_report" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+
+            <label>Registered Customers Email</label>
+            <tab>customer</tab>
+            <resource>Veni_RegisteredCustomersReport::settings</resource>
+
+            <group id="registered_customers" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+
+                <label>General</label>
+
+                    <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Enable</label>
+                        <config_path>veni_report/registered_customers/enabled</config_path>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+
+                    <field id="email" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Email template</label>
+                        <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                        <!-- This model return all transactional email template list of magento -->
+                    </field>
+
+                    <field id="data" type="multiselect" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                        <label>Customer data</label>
+                        <config_path>veni_report/registered_customers/data</config_path>
+                        <source_model>Veni\RegisteredCustomersReport\Model\Config\Source\CustomerData</source_model>
+                    </field>
+
+                    <field id="schedule" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                        <label>Cron schedule</label>
+                        <comment><![CDATA[
+<pre>
+* * * * *
+| | | | |
+| | | | +---- Day of the Week   (range: 1-7, 1 standing for Monday)
+| | | +------ Month of the Year (range: 1-12)
+| | +-------- Day of the Month  (range: 1-31)
+| +---------- Hour              (range: 0-23)
++------------ Minute            (range: 0-59)
+Example: 0 0 * * * Daily at midnight
+</pre>
+                            ]]>
+                        </comment>
+                    </field>
+
+            </group>
+
+        </section>
+
+    </system>
+
+</config>

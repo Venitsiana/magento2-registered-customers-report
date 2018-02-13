@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+
+    <template id="veni_report_registered_customers_email"
+              label="Registered customers"
+              file="registered_customers.html"
+              type="html"
+              module="Veni_RegisteredCustomersReport"
+              area="frontend" />
+
+</config>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <veni_report>
+            <registered_customers>
+                <enabled>1</enabled>
+                <schedule>* * 1 * *</schedule>
+                <email>veni_report_registered_customers_email</email>
+            </registered_customers>
+        </veni_report>
+    </default>
+</config>

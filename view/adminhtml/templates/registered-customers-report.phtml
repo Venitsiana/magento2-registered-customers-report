@@ -1,0 +1,41 @@
+<?php
+/**
+ * @var $block Veni\RegisteredCustomersReport\Block\Adminhtml\EmailContentRender
+ */
+?>
+
+<?php
+$customers = $block->getCustomersData();
+?>
+
+<?php
+if($customers): ?>
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr align="center">
+                <th><?php echo __('First name') ?></th>
+                <th><?php echo __('Last name') ?></th>
+                <th><?php echo __('Email') ?></th>
+                <th><?php echo __('Address') ?></th>
+                <th><?php echo __('Phone') ?></th>
+            </tr>
+        </thead>
+    <?php
+    foreach ($customers as $customer):
+    ?>
+        <tbody>
+            <tr>
+                <td><?php echo $customer->getFirstName(); ?></td>
+                <td><?php echo $customer->getLastName(); ?></td>
+                <td><?php echo $customer->getEmail(); ?></td>
+                <td><?php echo $customer->getAddress(); ?></td>
+                <td><?php echo $customer->getPhone(); ?></td>
+            </tr>
+        </tbody>
+    <?php
+    endforeach; ?>
+    </table>
+<?php
+else:
+   echo  __('No customers have registered within the last  hours.');
+endif; ?>

@@ -1,0 +1,18 @@
+<!--@subject Registered customers  @-->
+<!--@vars {
+"var this.getUrl($store, 'admin')":"Warehouse Account URL",
+"var customer.email":"Customer Email",
+"var customer.name":"Customer Name"
+} @-->
+
+{{template config_path="design/email/header_template"}} <!-- pathe of template header-->
+
+<!-- here $myvar1 , $myvar2, $myvar3, $myvar4, $myvar5, $myvar6 are variables in which we
+                                     asssign values when we use this template for send mail-->
+
+<!-- you can Modify content of template according to your requirement-->
+{{block class='\\Veni\\RegisteredCustomersReport\\Block\\Adminhtml\\EmailContentRender'
+        area='adminhtml'
+        template='Veni_RegisteredCustomersReport::registered-customers-report.phtml' }}
+
+{{template config_path="design/email/footer_template"}} <!--footer of template-->
