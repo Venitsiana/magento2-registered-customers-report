@@ -5,31 +5,27 @@
 ?>
 
 <?php
-$customers = $block->getCustomersData();
+$data = $block->getCustomersData();
+//$dbCustomer = $this->helper('\Veni\RegisteredCustomersReport\Helper\DatabaseCustomerManager');
 ?>
 
 <?php
-if($customers): ?>
+if(!empty($data['customers'])): ?>
     <table border="1" cellpadding="5">
         <thead>
             <tr align="center">
-                <th><?php echo __('First name') ?></th>
-                <th><?php echo __('Last name') ?></th>
-                <th><?php echo __('Email') ?></th>
-                <th><?php echo __('Address') ?></th>
-                <th><?php echo __('Phone') ?></th>
+                <?php
+                foreach ($data['labels'] as $label): ?>
+                    <th><?= $label ?></th>
+                <?php
+                endforeach; ?>
             </tr>
         </thead>
     <?php
-    foreach ($customers as $customer):
-    ?>
+    foreach ($data['customers'] as $value): ?>
         <tbody>
             <tr>
-                <td><?php echo $customer->getFirstName(); ?></td>
-                <td><?php echo $customer->getLastName(); ?></td>
-                <td><?php echo $customer->getEmail(); ?></td>
-                <td><?php echo $customer->getAddress(); ?></td>
-                <td><?php echo $customer->getPhone(); ?></td>
+                <td><?= $value ?></td>
             </tr>
         </tbody>
     <?php

@@ -3,36 +3,47 @@
 namespace Veni\RegisteredCustomersReport\Block\Adminhtml;
 
 use Magento\Framework\View\Element\Template;
-
+use Magento\Framework\App\ResourceConnection;
+use Psr\Log\LoggerInterface;
 
 class EmailContentRender extends \Magento\Framework\View\Element\Template
 {
 
     /**
-     * @var \Magento\Customer\Model\CustomerFactory
+     * @var ResourceConnection
      */
-    private $customerFactory;
+    private $resource;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+    /**
+     * @var \Veni\RegisteredCustomersReport\Helper\CustomerManager
+     */
+    private $customerManager;
 
     public function __construct(
         Template\Context $context,
-        \Magento\Customer\Model\CustomerFactory $customerFactory,
+        \Veni\RegisteredCustomersReport\Helper\CustomerManager $customerManager,
+        ResourceConnection $resource,
+        LoggerInterface $logger,
         array $data = []
     ) {
         parent::__construct($context, $data);
 
-        $this->customerFactory = $customerFactory;
+        $this->resource = $resource;
+        $this->logger = $logger;
+        $this->customerManager = $customerManager;
     }
 
     public function getCustomersData()
     {
+        return $this->customerManager->test();
+//        $connection = $this->resource->getConnection(ResourceConnection::DEFAULT_CONNECTION);
+//        $select = $connection->describeTable('customer_entity');
+//        //$this->logger->debug(json_encode(array_keys($select)));
+//        $this->logger->debug('veni');
         return false;
-
-        $customerModel = $this->customerFactory->create();
-        $customersCollection = $customerModel->getCollection();
-
-        $customersCollection
-            ->addAttributeToSelect("*")
-            ->addAttributeToFilter("created_at", array("gt" => ""))->load();
     }
 
 }

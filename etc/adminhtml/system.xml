@@ -10,7 +10,7 @@
 
     <system>
 
-        <section id="veni_report" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+        <section id="veni_report" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="1">
 
             <label>Registered Customers Email</label>
             <tab>customer</tab>
@@ -32,7 +32,7 @@
                         <!-- This model return all transactional email template list of magento -->
                     </field>
 
-                    <field id="data" type="multiselect" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <field id="data" type="multiselect" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                         <label>Customer data</label>
                         <config_path>veni_report/registered_customers/data</config_path>
                         <source_model>Veni\RegisteredCustomersReport\Model\Config\Source\CustomerData</source_model>
