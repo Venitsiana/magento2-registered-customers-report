@@ -15,7 +15,7 @@ class CustomerData implements \Magento\Framework\Option\ArrayInterface
             ['value' => 'lastname', 'label' => __('Last name')],
             ['value' => 'gender', 'label' => __('Gender')],
             ['value' => 'email', 'label' => __('Email')],
-            ['value' => 'city,street,postcode', 'label' => __('Address')],
+            ['value' => 'address', 'label' => __('Address')],
             ['value' => 'telephone', 'label' => __('Phone')],
             ['value' => 'store_id', 'label' => __('Store')],
             ['value' => 'failures_num', 'label' => __('Failures num')],

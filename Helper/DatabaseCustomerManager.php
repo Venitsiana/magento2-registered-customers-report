@@ -47,6 +47,7 @@ class DatabaseCustomerManager implements CustomerManager
                 'second_table.entity_id = e.default_shipping',
                 $this->getDbColumns('customer_address_entity'));
 
+        $this->logger->debug($this->collection->getSelect());
         return $this->collection;
     }
 
@@ -94,6 +95,7 @@ class DatabaseCustomerManager implements CustomerManager
                     'city' => 'city',
                     'street' => 'street',
                     'postcode' => 'postcode',
+                    'address' => 'CONCAT( postcode," ", city, " ", street ) AS address',
                     'telephone' => 'telephone',
                 ];
         }
@@ -111,7 +113,7 @@ class DatabaseCustomerManager implements CustomerManager
             'email' => __('Email'),
             'store_id' => __('Store'),
             'failures_num' => __('Failures num'),
-            'city, street, postcode' => __('Address'),
+            'address' => __('Address'),
             'telephone' => __('Phone'),
         ];
     }
@@ -140,6 +142,7 @@ class DatabaseCustomerManager implements CustomerManager
 
         foreach ( $customerConfigValues as $value ) {
             // @todo ['city', 'street', 'postcode' ] => address
+            // @todo store_id => Store name
             if(!in_array($value, ['city', 'street', 'postcode'])) {
                 $customerConfigLabels[] = $customerDataLabels[$value];
             }
