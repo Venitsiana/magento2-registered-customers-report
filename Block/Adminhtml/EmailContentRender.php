@@ -18,7 +18,7 @@ class EmailContentRender extends \Magento\Framework\View\Element\Template
      */
     private $logger;
     /**
-     * @var \Veni\RegisteredCustomersReport\Helper\CustomerManager
+     * @var \Veni\RegisteredCustomersReport\Helper\DatabaseCustomerManager
      */
     private $customerManager;
 
@@ -38,12 +38,10 @@ class EmailContentRender extends \Magento\Framework\View\Element\Template
 
     public function getCustomersData()
     {
-        return $this->customerManager->test();
-//        $connection = $this->resource->getConnection(ResourceConnection::DEFAULT_CONNECTION);
-//        $select = $connection->describeTable('customer_entity');
-//        //$this->logger->debug(json_encode(array_keys($select)));
-//        $this->logger->debug('veni');
-        return false;
+        //$this->logger->debug('$this->customerManager->test()');
+        //$this->logger->debug(json_encode($this->customerManager->test()));
+
+        return $this->customerManager->findLastRegisteredCustomers();
     }
 
 }

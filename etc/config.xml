@@ -6,7 +6,7 @@
             <registered_customers>
                 <enabled>0</enabled>
                 <schedule>* * * * *</schedule>
-                <data>0,2,4</data>
+                <data>firstname,lastname,email</data>
                 <email>veni_report_registered_customers_email</email>
             </registered_customers>
         </veni_report>

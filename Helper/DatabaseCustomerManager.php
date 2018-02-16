@@ -37,16 +37,15 @@ class DatabaseCustomerManager implements CustomerManager
     private function getCustomerCollection()
     {
 
+        // @todo check for empty array
         $this->collection
             ->getSelect()
             ->reset(\Zend_Db_Select::COLUMNS)
-            ->columns(['firstname', 'lastname'])
+            ->columns($this->getDbColumns('customer_entity'))
             ->joinLeft(
                 ['second_table' => $this->collection->getTable('customer_address_entity')],
                 'second_table.entity_id = e.default_shipping',
-                ['city', 'telephone']);
-
-        $this->logger->debug($this->collection->getSelect());
+                $this->getDbColumns('customer_address_entity'));
 
         return $this->collection;
     }
@@ -54,44 +53,66 @@ class DatabaseCustomerManager implements CustomerManager
     public function findLastRegisteredCustomers()
     {
 
-        $customersCollection = $this->getCustomerCollection();
-        $customersCollection
-            ->addAttributeToSelect("*")
-            ->load();
+        // @todo set time config
+        $customers = $this->getCustomerCollection()->load();
 
-        return $customersCollection;
+        $labels = $this->getCustomerDataConfigLabels();
+
+        return compact('customers', 'labels');
     }
 
-    public function getDbColumnNames()
+    private function getDbColumns($dbTableName)
     {
+        $customerConfigValues = $this->getCustomerDataConfigValues();
+        $fieldsMap = $this->fieldsMap($dbTableName);
 
-        return [
-            0 => 'e.firstname',
-            1 => 'e.middlename',
-            2 => 'e.lastname',
-            3 => 'e.gender',
-            4 => 'e.email',
-            5 => 'second_table.postcode',
-            6 => 'second_table.city',
-            7 => 'second_table.telephone',
-            8 => 'e.store_id',
-            9 => 'e.failures_num',
-        ];
+        $selectedColumns = [];
+        foreach ($customerConfigValues as $value) {
+            if(array_key_exists($value, $fieldsMap)) {
+                $selectedColumns[] = $fieldsMap[$value];
+            }
+        }
+
+        return $selectedColumns;
+    }
+
+    private function fieldsMap($dbTableName) {
+
+        switch ($dbTableName) {
+            case 'customer_entity':
+                return [
+                    'firstname' => 'firstname',
+                    'middlename' => 'middlename',
+                    'lastname' => 'lastname',
+                    'gender' => 'gender',
+                    'email' => 'email',
+                    'store_id' => 'store_id',
+                    'failures_num' => 'failures_num',
+                ];
+            case 'customer_address_entity':
+                return [
+                    'city' => 'city',
+                    'street' => 'street',
+                    'postcode' => 'postcode',
+                    'telephone' => 'telephone',
+                ];
+        }
+
     }
 
     public function getCustomerDataLabels()
     {
-
+        // @todo call in Model
         return [
-            0 => __('First name'),
-            1 => __('Middle name'),
-            2 => __('Last name'),
-            3 => __('Gender'),
-            4 => __('Email'),
-            5 => __('Address'),
-            6 => __('Phone'),
-            7 => __('Store'),
-            8 => __('Failures num'),
+            'firstname' => __('First name'),
+            'middlename' => __('Middle name'),
+            'lastname' => __('Last name'),
+            'gender' => __('Gender'),
+            'email' => __('Email'),
+            'store_id' => __('Store'),
+            'failures_num' => __('Failures num'),
+            'city, street, postcode' => __('Address'),
+            'telephone' => __('Phone'),
         ];
     }
 
@@ -118,30 +139,13 @@ class DatabaseCustomerManager implements CustomerManager
         $customerDataLabels = $this->getCustomerDataLabels();
 
         foreach ( $customerConfigValues as $value ) {
-            $customerConfigLabels[] = $customerDataLabels[$value];
+            // @todo ['city', 'street', 'postcode' ] => address
+            if(!in_array($value, ['city', 'street', 'postcode'])) {
+                $customerConfigLabels[] = $customerDataLabels[$value];
+            }
         }
 
         return $customerConfigLabels;
-    }
-
-    public function test()
-    {
-        //return false;
-        $customers = $this->findLastRegisteredCustomers();
-        $customerConfigValues = $this->getCustomerDataConfigValues();
-        $dbColumnNames = $this->getDbColumnNames();
-
-        $newCustomersArray = [];
-        foreach ($customers as $customer) {
-            foreach ($customerConfigValues as $value) {
-                $newCustomersArray['customers'][$customer->getData('entity_id')][] = $customer->getData($dbColumnNames[$value]);
-            }
-        }
-        $newCustomersArray['labels'] = $this->getCustomerDataConfigLabels();
-        $this->logger->debug(json_encode($newCustomersArray));
-        $this->logger->debug('aideee');
-
-        return $newCustomersArray;
     }
 
 }

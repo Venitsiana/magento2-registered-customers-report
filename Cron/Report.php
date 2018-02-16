@@ -26,6 +26,7 @@ class Report
     public function execute()
     {
 
+        // @TODO create config fields
         /* Receiver Detail  */
         $receiverInfo = [
             'name' => 'Reciver Name',
@@ -41,7 +42,7 @@ class Report
 
         // Assign values for your template variables
         $emailTemplateVariables = [];
-        //die('die die');
+
         /* call send mail method from helper or where you define it*/
         $this->helperEmail->sendEmail(
             $emailTemplateVariables,

@@ -6,7 +6,6 @@
 
 <?php
 $data = $block->getCustomersData();
-//$dbCustomer = $this->helper('\Veni\RegisteredCustomersReport\Helper\DatabaseCustomerManager');
 ?>
 
 <?php
@@ -21,15 +20,19 @@ if(!empty($data['customers'])): ?>
                 endforeach; ?>
             </tr>
         </thead>
-    <?php
-    foreach ($data['customers'] as $value): ?>
         <tbody>
-            <tr>
-                <td><?= $value ?></td>
-            </tr>
+            <?php
+            foreach ($data['customers'] as $customer): ?>
+                <tr>
+                    <?php
+                    foreach ($customer->getData() as $key => $value): ?>
+                        <td><?= $value; ?></td>
+                    <?php
+                    endforeach; ?>
+                </tr>
+            <?php
+            endforeach; ?>
         </tbody>
-    <?php
-    endforeach; ?>
     </table>
 <?php
 else:
