@@ -104,7 +104,7 @@ class DatabaseCustomerManager implements CustomerManager
 
     public function getCustomerDataLabels()
     {
-        // @todo call in Model
+
         return [
             'firstname' => __('First name'),
             'middlename' => __('Middle name'),
@@ -141,11 +141,8 @@ class DatabaseCustomerManager implements CustomerManager
         $customerDataLabels = $this->getCustomerDataLabels();
 
         foreach ( $customerConfigValues as $value ) {
-            // @todo ['city', 'street', 'postcode' ] => address
             // @todo store_id => Store name
-            //if(!in_array($value, $this->getAddressFields())) {
-                $customerConfigLabels[] = $customerDataLabels[$value];
-           // }
+            $customerConfigLabels[] = $customerDataLabels[$value];
         }
 
         return $customerConfigLabels;
