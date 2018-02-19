@@ -143,12 +143,19 @@ class DatabaseCustomerManager implements CustomerManager
         foreach ( $customerConfigValues as $value ) {
             // @todo ['city', 'street', 'postcode' ] => address
             // @todo store_id => Store name
-            if(!in_array($value, ['city', 'street', 'postcode'])) {
+            //if(!in_array($value, $this->getAddressFields())) {
                 $customerConfigLabels[] = $customerDataLabels[$value];
-            }
+           // }
         }
 
         return $customerConfigLabels;
+    }
+
+    private function getAddressFields()
+    {
+        return [
+            'city', 'street', 'postcode'
+        ];
     }
 
 }
