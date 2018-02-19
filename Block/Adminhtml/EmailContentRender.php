@@ -21,10 +21,15 @@ class EmailContentRender extends \Magento\Framework\View\Element\Template
      * @var \Veni\RegisteredCustomersReport\Helper\DatabaseCustomerManager
      */
     private $customerManager;
+    /**
+     * @var \Magento\Store\Model\StoreManagerInterface
+     */
+    private $storeManager;
 
     public function __construct(
         Template\Context $context,
         \Veni\RegisteredCustomersReport\Helper\CustomerManager $customerManager,
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
         ResourceConnection $resource,
         LoggerInterface $logger,
         array $data = []
@@ -34,14 +39,17 @@ class EmailContentRender extends \Magento\Framework\View\Element\Template
         $this->resource = $resource;
         $this->logger = $logger;
         $this->customerManager = $customerManager;
+        $this->storeManager = $storeManager;
     }
 
     public function getCustomersData()
     {
-        //$this->logger->debug('$this->customerManager->test()');
-        //$this->logger->debug(json_encode($this->customerManager->test()));
-
         return $this->customerManager->findLastRegisteredCustomers();
+    }
+
+    public function getStoreName($storeId)
+    {
+        return $this->storeManager->getStore($storeId)->getName();
     }
 
 }

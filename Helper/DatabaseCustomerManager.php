@@ -43,6 +43,10 @@ class DatabaseCustomerManager implements CustomerManager
             ->reset(\Zend_Db_Select::COLUMNS)
             ->columns($this->getDbColumns('customer_entity'))
             ->joinLeft(
+                ['st' => $this->collection->getTable('store')],
+                'st.store_id = e.store_id',
+                $this->getDbColumns('store'))
+            ->joinLeft(
                 ['second_table' => $this->collection->getTable('customer_address_entity')],
                 'second_table.entity_id = e.default_shipping',
                 $this->getDbColumns('customer_address_entity'));
@@ -87,7 +91,6 @@ class DatabaseCustomerManager implements CustomerManager
                     'lastname' => 'lastname',
                     'gender' => 'gender',
                     'email' => 'email',
-                    'store_id' => 'store_id',
                     'failures_num' => 'failures_num',
                 ];
             case 'customer_address_entity':
@@ -97,6 +100,10 @@ class DatabaseCustomerManager implements CustomerManager
                     'postcode' => 'postcode',
                     'address' => 'CONCAT( postcode," ", city, " ", street ) AS address',
                     'telephone' => 'telephone',
+                ];
+            case 'store':
+                return [
+                    'store_id' => 'name',
                 ];
         }
 
@@ -111,8 +118,8 @@ class DatabaseCustomerManager implements CustomerManager
             'lastname' => __('Last name'),
             'gender' => __('Gender'),
             'email' => __('Email'),
-            'store_id' => __('Store'),
             'failures_num' => __('Failures num'),
+            'store_id' => __('Store'),
             'address' => __('Address'),
             'telephone' => __('Phone'),
         ];
@@ -141,7 +148,6 @@ class DatabaseCustomerManager implements CustomerManager
         $customerDataLabels = $this->getCustomerDataLabels();
 
         foreach ( $customerConfigValues as $value ) {
-            // @todo store_id => Store name
             $customerConfigLabels[] = $customerDataLabels[$value];
         }
 
