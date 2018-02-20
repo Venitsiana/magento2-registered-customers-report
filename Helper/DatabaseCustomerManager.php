@@ -37,7 +37,6 @@ class DatabaseCustomerManager implements CustomerManager
     private function getCustomerCollection()
     {
 
-        // @todo check for empty array
         $this->collection
             ->getSelect()
             ->reset(\Zend_Db_Select::COLUMNS)
@@ -128,7 +127,7 @@ class DatabaseCustomerManager implements CustomerManager
     private function getConfigValue(string $key, $storeId = null)
     {
         $value = $this->config->getValue(
-            'veni_report/registered_customers/' . $key,
+            'registered_customers/general/' . $key,
             ScopeInterface::SCOPE_STORE,
             $storeId
         );

@@ -4,7 +4,7 @@
 
     <group id="index">
         <job name="registered_customers_report" instance="Veni\RegisteredCustomersReport\Cron\Report" method="execute">
-            <config_path>veni_report/registered_customers/schedule</config_path>
+            <config_path>registered_customers/general/schedule</config_path>
         </job>
     </group>
 

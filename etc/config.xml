@@ -2,13 +2,13 @@
 
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
-        <veni_report>
-            <registered_customers>
+        <registered_customers>
+            <general>
                 <enabled>0</enabled>
                 <schedule>* * * * *</schedule>
                 <data>firstname,lastname,email</data>
-                <email>veni_report_registered_customers_email</email>
-            </registered_customers>
-        </veni_report>
+                <email>registered_customers_general_email</email>
+            </general>
+        </registered_customers>
     </default>
 </config>

@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
 class Email extends \Magento\Framework\App\Helper\AbstractHelper
 {
 
-    const XML_PATH_EMAIL_TEMPLATE_FIELD  = 'veni_report/registered_customers/email';
+    const XML_PATH_EMAIL_TEMPLATE_FIELD  = 'registered_customers/general/email';
 
     /**
      * @var StoreManagerInterface
@@ -130,7 +130,6 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
     public function sendEmail($emailTemplateVariables, $sender, $recipient)
     {
         $this->logger->debug('in send email '.$this->_getTemplate());
-        //var_dump($this->_getTemplate());die('hmm,m');
         $this->templateId = $this->getTemplateId($this->_getTemplate());
         $this->inlineTranslation->suspend();
         $this->generateTemplate($emailTemplateVariables, $sender, $recipient);
