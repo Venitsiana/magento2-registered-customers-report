@@ -35,29 +35,33 @@ class Report
     public function execute()
     {
 
-        /* Receiver Detail  */
-        $receiverInfo = [
-            'name' => $this->getReceiverData()['name'],
-            'email' => $this->getReceiverData()['email']
-        ];
+        if($this->isEnabled()) {
 
-        /* Sender Detail  */
-        $senderInfo = [
-            'name' => $this->getSenderData()['name'],
-            'email' => $this->getSenderData()['email'],
-        ];
-        $this->logger->debug('sender data Email '.$this->getSenderData()['name'].': '. $this->getSenderData()['email']);
-        $this->logger->debug('receiver data Email '.$this->getReceiverData()['name'].': '. $this->getReceiverData()['email']);
+            /* Receiver Detail  */
+            $receiverInfo = [
+                'name' => $this->getReceiverData()['name'],
+                'email' => $this->getReceiverData()['email']
+            ];
 
-        // Assign values for your template variables
-        $emailTemplateVariables = [];
+            /* Sender Detail  */
+            $senderInfo = [
+                'name' => $this->getSenderData()['name'],
+                'email' => $this->getSenderData()['email'],
+            ];
+            $this->logger->debug('sender data Email '.$this->getSenderData()['name'].': '. $this->getSenderData()['email']);
+            $this->logger->debug('receiver data Email '.$this->getReceiverData()['name'].': '. $this->getReceiverData()['email']);
 
-        /* call send mail method from helper or where you define it*/
-        $this->helperEmail->sendEmail(
-            $emailTemplateVariables,
-            $senderInfo,
-            $receiverInfo
-        );
+            // Assign values for your template variables
+            $emailTemplateVariables = [];
+
+            /* call send mail method from helper or where you define it*/
+            $this->helperEmail->sendEmail(
+                $emailTemplateVariables,
+                $senderInfo,
+                $receiverInfo
+            );
+
+        }
 
     }
 
@@ -131,6 +135,18 @@ class Report
         }
 
         return $data;
+    }
+
+
+    private function isEnabled()
+    {
+        // @todo repeat with DatabaseCustomerManager getConfigValue
+        $value = $this->scopeConfig->getValue(
+            'registered_customers/general/enabled',
+            \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+        );
+
+        return $value;
     }
 
 }

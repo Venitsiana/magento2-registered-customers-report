@@ -147,4 +147,6 @@ class Email extends \Magento\Framework\App\Helper\AbstractHelper
         return self::XML_PATH_EMAIL_TEMPLATE_FIELD;
     }
 
+
+
 }
