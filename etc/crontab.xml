@@ -4,7 +4,9 @@
 
     <group id="index">
         <job name="registered_customers_report" instance="Veni\RegisteredCustomersReport\Cron\Report" method="execute">
-            <config_path>registered_customers/general/schedule</config_path>
+            <!--<schedule>* * * * *</schedule>-->
+            <config_path>crontab/default/jobs/registered_customers_report/schedule/cron_expr</config_path>
+            <!--<config_path>registered_customers/general/schedule</config_path>-->
         </job>
     </group>
 

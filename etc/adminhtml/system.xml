@@ -38,29 +38,28 @@
                         <source_model>Veni\RegisteredCustomersReport\Model\Config\Source\CustomerData</source_model>
                     </field>
 
-                    <field id="schedule" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
-                        <label>Cron schedule</label>
-                        <comment><![CDATA[
-<pre>
-* * * * *
-| | | | |
-| | | | +---- Day of the Week   (range: 1-7, 1 standing for Monday)
-| | | +------ Month of the Year (range: 1-12)
-| | +-------- Day of the Month  (range: 1-31)
-| +---------- Hour              (range: 0-23)
-+------------ Minute            (range: 0-59)
-Example: 0 0 * * * Daily at midnight
-</pre>
-                            ]]>
-                        </comment>
-                    </field>
+            </group>
+
+            <group id="schedule" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+
+                <label>Cron settings</label>
+
+                <field id="frequency" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Frequency</label>
+                    <source_model>Magento\Cron\Model\Config\Source\Frequency</source_model>
+                    <backend_model>Veni\RegisteredCustomersReport\Model\Config\Cron</backend_model>
+                </field>
+
+                <field id="time" translate="label comment" sortOrder="2" type="time" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Start Time</label>
+                    <config_path>registered_customers/schedule/time</config_path>
+                </field>
 
             </group>
 
+            <group id="emails" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
 
-            <group id="emails" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-
-                <label>Emails</label>
+                <label>Email settings</label>
 
                 <field id="sender_name" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Sender name</label>

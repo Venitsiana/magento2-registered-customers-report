@@ -5,10 +5,13 @@
         <registered_customers>
             <general>
                 <enabled>0</enabled>
-                <schedule>* * * * *</schedule>
+                <!--<schedule>* * * * *</schedule>-->
                 <data>firstname,lastname,email</data>
                 <email>registered_customers_general_email</email>
             </general>
+            <schedule>
+                <frequency>W</frequency>
+            </schedule>
         </registered_customers>
     </default>
 </config>
